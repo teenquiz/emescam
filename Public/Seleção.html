@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        background-image: url("../images/cenário.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: repeat(
+          4,
+          1fr
+        ); /* Cria 3 colunas com largura igual */
+        grid-template-rows: repeat(3, 1fr); /* Cria 4 linhas com altura igual */
+        gap: 10px;
+        height: 94vh;
+      }
+
+      .image {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+      }
+
+      @font-face {
+        font-family: "peralta";
+        src: url("../Peralta-Regular.ttf") format("woff2"),
+          url("../Peralta-Regular.ttf") format("woff");
+      }
+
+      #entrada1,
+      #entrada2 {
+        margin: 0.5%;
+        font-family: "peralta", sans-serif;
+        padding: 1% 20%;
+        text-align: center;
+        border-radius: 20px;
+      }
+
+      .input-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        grid-column: 1 / span 4; /* Ocupa 3 colunas */
+        grid-row: 4; /* Última linha */
+        font-family: "peralta", sans-serif;
+      }
+
+      #next-button {
+        margin: 20px;
+        padding: 1% 25%;
+        background-color: #0074d9;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-family: "peralta", sans-serif;
+        border-radius: 20px;
+      }
+
+      .selected {
+        border: 3px solid green;
+        border-radius: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="input-container">
+      <p>Selecionem seus personagens</p>
+    </div>
+    <div class="container">
+      <div
+        class="image"
+        id="image1"
+        style="background-image: url('../images/Avatar\ 1\ BABI.png')"
+      ></div>
+      <div
+        class="image"
+        id="image2"
+        style="background-image: url('../images/Avatar\ 2\ THAY.png')"
+      ></div>
+      <div
+        class="image"
+        id="image3"
+        style="background-image: url('../images/Avatar\ 3\ LALA.png')"
+      ></div>
+      <div
+        class="image"
+        id="image4"
+        style="background-image: url('../images/Avatar\ 4\ LUCAS.png')"
+      ></div>
+      <div
+        class="image"
+        id="image5"
+        style="background-image: url('../images/Avatar\ 5\ Nick.png')"
+      ></div>
+      <div
+        class="image"
+        id="image6"
+        style="background-image: url('../images/Avatar\ 6\ PCD.png')"
+      ></div>
+      <div
+        class="image"
+        id="image7"
+        style="background-image: url('../images/Avatar\ 7\ Profa.png')"
+      ></div>
+      <div
+        class="image"
+        id="image8"
+        style="background-image: url('../images/Avatar\ 8\ Loiro.png')"
+      ></div>
+      <div
+        class="image"
+        id="image9"
+        style="background-image: url('../images/Avatar\ boneco\ 1.png')"
+      ></div>
+      <div
+        class="image"
+        id="image10"
+        style="background-image: url('../images/Avatar\ boneco\ 2.png')"
+      ></div>
+      <div
+        class="image"
+        id="image11"
+        style="background-image: url('../images/Avatar\ boneco\ 3.png')"
+      ></div>
+      <div
+        class="image"
+        id="image12"
+        style="background-image: url('../images/Avatar\ boneco\ 4.png')"
+      ></div>
+      <div class="input-container">
+        <p>Insiram o nome dos jogadores</p>
+        <input type="text" id="entrada1" placeholder="Nome 1" required />
+        <input type="text" id="entrada2" placeholder="Nome 2" required />
+        <button id="next-button">Continuar</button>
+      </div>
+    </div>
+
+    <script>
+      let selectedImages = [];
+      let imageCount = 0;
+
+      const imageElements = document.querySelectorAll(".image");
+      imageElements.forEach((element) => {
+        element.addEventListener("click", (event) => {
+          const imageId = event.target.id;
+
+          selectImage(imageId, element);
+        });
+      });
+
+      function selectImage(imageUrl, element) {
+        if (imageCount < 2) {
+          if (!selectedImages.includes(imageUrl)) {
+            selectedImages.push(imageUrl);
+            imageCount++;
+            element.classList.add("selected");
+          } else {
+            selectedImages = selectedImages.filter((url) => url !== imageUrl);
+            imageCount--;
+            element.classList.remove("selected");
+          }
+        }
+      }
+
+      function savePlayerNames(event) {
+        event.preventDefault();
+        const jogador1name = document.getElementById("entrada1").value;
+        const jogador2name = document.getElementById("entrada2").value;
+        if (imageCount == 2) {
+          const imageUrl1 = selectedImages[0];
+          const imageUrl2 = selectedImages[1];
+
+          salvarNoLocalStorage("player1", {
+            image: imageUrl1,
+            playerName: jogador1name,
+          });
+          salvarNoLocalStorage("player2", {
+            image: imageUrl2,
+            playerName: jogador2name,
+          });
+          window.location.href = "./GameCode.html";
+        } else {
+          alert("Selecione duas imagens antes de continuar.");
+        }
+      }
+
+      
+      document
+        .getElementById("next-button")
+        .addEventListener("click", savePlayerNames);
+
+      function buscarNoLocalStorage(chave) {
+        try {
+          const item = localStorage.getItem(chave);
+          console.log(item);
+          return item;
+        } catch (e) {
+          console.error("Erro ao buscar no localStorage:", e);
+        }
+      }
+
+      function salvarNoLocalStorage(chave, valor) {
+        try {
+          localStorage.setItem(chave, JSON.stringify(valor));
+          console.log(
+            `"${chave}" foi salvo no localStorage com o valor: "${JSON.stringify(
+              valor,
+              2,
+              null
+            )}"`
+          );
+        } catch (e) {
+          console.error("Erro ao salvar no localStorage:", e);
+        }
+      }
+    </script>
+  </body>
+</html>

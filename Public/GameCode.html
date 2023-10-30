@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto Slab"
+      rel="stylesheet"
+    />
+    <style>
+      /* Estilos CSS para o plano de fundo */
+      body {
+        margin: 0;
+        padding: 0;
+        background-image: url("../images/cenário.png");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      /* Estilos para o grid */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+        height: 720px;
+        width: 1080px;
+      }
+
+      /* Estilos para as colunas 1 e 2 */
+      .col1 {
+        grid-column: span 1; /* Cada coluna ocupa uma fração do espaço disponível */
+        grid-row: span 1; /* Cada coluna terá 9 linhas */
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.5
+        ); /* Cor de fundo para as colunas 1 e 2 */
+      }
+
+      /* Estilos para a coluna 3 */
+      .col2-part1 {
+        grid-column: span 1; /* A primeira parte da coluna 2 ocupa uma fração do espaço disponível */
+        grid-row: span 1; /* A primeira parte da coluna 2 terá 2 linhas */
+        background-color: rgba(255, 255, 255, 0.5);
+        text-align: center;
+      }
+
+      /* Estilos para a segunda parte da coluna 2 (7 linhas) */
+      .col2-part2 {
+        grid-column: span 3; /* A segunda parte da coluna 2 ocupa uma fração do espaço disponível */
+        grid-row: span 8; /* A segunda parte da coluna 2 terá 7 linhas */
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.5
+        ); /* Cor de fundo para a segunda parte da coluna 2 */
+      }
+
+      .col3 {
+        grid-column: span 1; /* Cada coluna ocupa uma fração do espaço disponível */
+        grid-row: span 1; /* Cada coluna terá 9 linhas */
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.5
+        ); /* Cor de fundo para as colunas 1 e 2 */
+      }
+
+      .image1 {
+        width: 60%;
+        height: 180%;
+        margin-top: 15%;
+      }
+
+      .image2 {
+        width: 60%;
+        height: 80%;
+        margin-top: 15%;
+      }
+
+      .placar {
+        text-align: center;
+        font-family: "Roboto Slab";
+        margin-top: 40%;
+      }
+
+      #placarFont {
+        font-size: 420%;
+      }
+
+      .content {
+        padding: 20px;
+        text-align: center;
+        font-family: "Roboto Slab";
+      }
+      #question {
+        text-align: left;
+        font-size: 120%;
+        margin-left: 5%;
+        margin-right: 5%;
+      }
+
+      .btn {
+        margin-top: 20px;
+        background-color: rgba(12, 161, 230, 0.733);
+        border-radius: 20px;
+      }
+
+      .question1,
+      .question2,
+      .question3,
+      .question4,
+      .question5,
+      .question6,
+      .question7,
+      .question8 {
+        background-image: url("../images/banner\ 1.png");
+      }
+      .question9,
+      .question10,
+      .question11,
+      .question12,
+      .question13,
+      .question14,
+      .question15,
+      .question16 {
+        background-image: url("../images/banner\ 2.png");
+      }
+      .question17,
+      .question18,
+      .question19,
+      .question20,
+      .question21,
+      .question22,
+      .question23,
+      .question24 {
+        background-image: url("../images/banner\ 3.png");
+      }
+      .question25,
+      .question26,
+      .question27,
+      .question28,
+      .question29,
+      .question30 {
+        background-image: url("../images/banner\ 4.png");
+        
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid">
+      <div class="col1">
+        <div class="content">
+          <img class="image1" id="jogador1"></img>
+          <h3 id="name1"></h3>
+        </div>
+      </div>
+      <div class="col2-part1">
+        <div class="placar">
+          <p id="placarFont"><span id="p1Score">0</span> x <span id="p2Score">0</span></p>
+        </div>
+      </div>
+      <div class="col3">
+        <div class="content">
+          <img class="image2" id="jogador2"/></img>
+          <h3 id="name2"></h3>
+        </div>
+      </div>
+      <div class="col2-part2">
+        <div class="content">
+          <div id="question">
+            <h2>Pergunta</h2>
+            <p id="questionText"></p>
+            <form id="answerForm">
+              <label>
+                <input type="radio" name="answer" value="a" />
+                <span id="optionA"></span> </label
+              ><br />
+              <label>
+                <input type="radio" name="answer" value="b" />
+                <span id="optionB"></span> </label
+              ><br />
+              <label>
+                <input type="radio" name="answer" value="c" />
+                <span id="optionC"></span> </label
+              ><br />
+              <label>
+                <input type="radio" name="answer" value="d" />
+                <span id="optionD"></span> </label
+              ><br />
+              <button class="btn" type="submit">Continuar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var playerOneString = localStorage.getItem("player1");
+      var playerTwoString = localStorage.getItem("player2");
+      var imageLinks = [ 
+      {id: "image1", url: "../images/Avatar\ 1\ BABI.png"},
+      {id: "image2", url: "../images/Avatar\ 2\ THAY.png"},
+      {id: "image3", url: "../images/Avatar\ 3\ LALA.png"},
+      {id: "image4", url: "../images/Avatar\ 4\ LUCAS.png"},
+      {id: "image5", url: "../images/Avatar\ 5\ Nick.png"},
+      {id: "image6", url: "../images/Avatar\ 6\ PCD.png"},
+      {id: "image7", url: "../images/Avatar\ 7\ Profa.png"},
+      {id: "image8", url: "../images/Avatar\ 8\ Loiro.png"},
+      {id: "image9", url: "../images/Avatar\ boneco\ 1.png"},
+      {id: "image10", url: "../images/Avatar\ boneco\ 2.png"},
+      {id: "image11", url: "../images/Avatar\ boneco\ 3.png"},
+      {id: "image12", url: "../images/Avatar\ boneco\ 4.png"},
+      ]
+
+       if (playerOneString && playerTwoString) {
+         var playerOneData = JSON.parse(playerOneString);
+         var playerTwoData = JSON.parse(playerTwoString);
+         var name1 = document.getElementById("name1");
+         var name2 = document.getElementById("name2");
+         name1.innerHTML = playerOneData.playerName;
+         name2.innerHTML = playerTwoData.playerName;           
+         var playerOneImageURL = localStorage.getItem("player1ImageURL")
+         var playerOneImageURL = localStorage.getItem("player2ImageURL")
+         var playerImage1 = document.getElementById("jogador1");
+         var playerImage2 = document.getElementById("jogador2");
+
+         playerImage1.src = imageLinks.find((image) => image.id === playerOneData.image).url;
+         playerImage2.src = imageLinks.find((image) => image.id === playerTwoData.image).url;
+
+        } else {
+         console.log("Dados dos jogadores não encontrados.");
+        
+        }
+
+      const questions = [
+        {
+          text: "Qual é o termo para o óvulo fertilizado após a implantação no útero?",
+          class: "question1",
+          options: {
+            a: "Zigoto",
+            b: "Embrião",
+            c: "Feto",
+            d: "Blastocisto",
+          },
+          answer: "b",
+        },
+        {
+          text: "Quanto tempo dura uma gravidez típica, em média?",
+          class: "question2",
+          options: {
+            a: "3 meses",
+            b: "6 meses",
+            c: "9 meses",
+            d: "12 meses",
+          },
+          answer: "c",
+        },
+        {
+          text: "O que é o cordão umbilical?",
+          class: "question3",
+          options: {
+            a: "Um tipo de cinto utilizado pelas grávidas",
+            b: "Uma parte do cérebro do bebê",
+            c: "Uma estrutura que conecta o bebê à placenta",
+            d: "Um instrumento usado para medir a pressão arterial durante a gravidez",
+          },
+          answer: "c",
+        },
+        {
+          text: "Qual é a principal função do cordão umbilical durante a gravidez?",
+          class: "question4",
+          options: {
+            a: "Alimentar o bebê com comida sólida",
+            b: "Transportar oxigênio e nutrientes da mãe para o bebê",
+            c: "Permitir que o bebê respire dentro do útero",
+            d: "Protege o bebê de bactérias",
+          },
+          answer: "b",
+        },
+        {
+          text: "O que é a placenta durante a gravidez?",
+          class: "question5",
+          options: {
+            a: "Um órgão que ajuda a mãe a respirar",
+            b: "Um dispositivo médico usado para monitorar o bebê",
+            c: "Uma estrutura que liga o bebê à mãe por um cabo",
+            d: "Um órgão temporário que fornece oxigênio e nutrientes ao bebê e remove resíduos",
+          },
+          answer: "d",
+        },
+        {
+          text: "Durante a gravidez, em que órgão o bebê se desenvolve e cresce?",
+          class: "question6",
+          options: {
+            a: "Pulmões",
+            b: "Estômago",
+            c: "Útero",
+            d: "Figado",
+          },
+          answer: "c",
+        },
+        {
+          text: "O que é o parto prematuro?",
+          class: "question7",
+          options: {
+            a: "Quando o bebê nasce antes do tempo esperado, antes das 20 semanas de gestação",
+            b: "Quando o bebê nasce antes de completar 42 semanas de gestação",
+            c: "Quando o bebê nasce dentro do período esperado, entre 37 e 42 semanas de gestação",
+            d: "Quando o bebê nasce após completar 10 meses de gestação",
+          },
+          answer: "b",
+        },
+        {
+          text: "O que é o ultrassom durante a gravidez?",
+          class: "question8",
+          options: {
+            a: "Um dispositivo para medir a pressão arterial da mãe",
+            b: "Um exame de imagem que permite ver o bebê dentro do útero",
+            c: "Uma máquina usada para contar os movimentos do bebê",
+            d: "Um teste de alergia realizado na mãe durante a gravidez",
+          },
+          answer: "b",
+        },
+        {
+          text: "Quais das seguintes ISTs são causadas por um vírus e podem causar verrugas genitais e câncer cervical em mulheres?",
+          class: "question9",
+          options: {
+            a: "Clamídia",
+            b: "Sífilis",
+            c: "Herpes genital",
+            d: "Gonorreia",
+          },
+          answer: "c",
+        },
+        {
+          text: "Qual é uma das formas comuns de transmissão de ISTs, como o HIV?",
+          class: "question10",
+          options: {
+            a: "Compartilhar roupas com um amigo",
+            b: "Beijar na boca",
+            c: "Contato sexual desprotegido com pessoa infectada",
+            d: "Abrir a mão de alguém",
+          },
+          answer: "c",
+        },
+        {
+          text: "Qual é a melhor maneira de prevenir a transmissão de ISTs durante a atividade sexual, além da abstinência sexual?",
+          class: "question11",
+          options: {
+            a: "Usar preservativo corretamente",
+            b: "Tomar um banho quente após o sexo",
+            c: "Compartilhar roupas com um parceiro",
+            d: "Evitar a higiene genital",
+          },
+          answer: "a",
+        },
+        {
+          text: "Qual é a importância de fazer exames regulares para detectar ISTs, mesmo se alguém não apresentar sintomas?",
+          class: "question12",
+          options: {
+            a: "Não é importante fazer exames se não houver sintomas",
+            b: "Os exames podem detectar ISTs antes que os sintomas sejam aplicados, permitindo o tratamento precoce",
+            c: "Fazer exames de ISTs é apenas para pessoas com muitos parceiros sexuais",
+            d: "Os exames de ISTs são apenas para pessoas que já apresentam sintomas visíveis.",
+          },
+          answer: "b",
+        },
+        {
+          text: "Quais são algumas medidas que podem ajudar a prevenir a transmissão de ISTs além do uso de preservativos?",
+          class: "question13",
+          options: {
+            a: "Não há outras medidas de prevenção além do uso de preservativos",
+            b: "Reduzir o número de parceiros sexuais e fazer exames regulares",
+            c: "Compartilhar roupas com parceiros sexuais",
+            d: "Ignorar os sintomas das ISTs, pois eles geralmente desaparecem sozinhos",
+          },
+          answer: "b",
+        },
+        {
+          text: "Qual é a principal forma de transmissão do HIV (Vírus da Imunodeficiência Humana)?",
+          class: "question14",
+          options: {
+            a: "Pelo compartilhamento de mobília de cozinha",
+            b: "Por meio de picadas de insetos",
+            c: "Por contato com sangue, fluidos corporais ou relações sexuais desprotegidas com uma pessoa infectada",
+            d: "Por meio do consumo de alimentos crus",
+          },
+          answer: "c",
+        },
+        {
+          text: "O que significa 'consentimento' no contexto das relações sexuais?",
+          class: "question15",
+          options: {
+            a: "Ignorar os desejos do parceiro",
+            b: "Realizar um ato sexual sem a vontade do parceiro",
+            c: "Respeitar os desejos e limites dos parceiros e obter um acordo mútuo antes de qualquer atividade sexual",
+            d: "Fazer o que quiser, independentemente dos sentimentos do parceiro",
+          },
+          answer: "c",
+        },
+        {
+          text: "Qual é uma das formas mais comuns de prevenir a transmissão de ISTs durante uma atividade sexual, especialmente quando há múltiplos parceiros sexuais?",
+          class: "question16",
+          options: {
+            a: "Fazer exames médicos apenas uma vez na vida",
+            b: "Usar preservativos de forma consistente e correta",
+            c: "Ignorar os sintomas das ISTs, pois eles geralmente desaparecem por conta própria",
+            d: "Tomar antibióticos após cada relação sexual",
+          },
+          answer: "b",
+        },
+        {
+          text: "Qual é um exemplo de método contraceptivo de barreira?",
+          class: "question17",
+          options: {
+            a: "Pílula anticoncepcional",
+            b: "DIU (Dispositivo Intrauterino)",
+            c: "Preservativo (camisinha)",
+            d: "Injeção anticoncepcional",
+          },
+          answer: "c",
+        },
+        {
+          text: "Qual é o objetivo principal dos métodos contraceptivos?",
+          class: "question18",
+          options: {
+            a: "Aumentar as chances de engravidar",
+            b: "Prevenir a gravidez indesejada",
+            c: "Aumentar o desejo sexual",
+            d: "Melhorar a saúde reprodutiva",
+          },
+          answer: "b",
+        },
+        {
+          text: "Qual dos seguintes métodos contraceptivos é conhecido por liberar hormônios que impedem a ovulação?",
+          class: "question19",
+          options: {
+            a: "Diafragma",
+            b: "Pílula anticoncepcional",
+            c: "DIU (Dispositivo Intrauterino)",
+            d: "Preservativo (camisinha)",
+          },
+          answer: "b",
+        },
+        {
+          text: "Qual é a principal função do DIU (Dispositivo Intrauterino) como método contraceptivo?",
+          class: "question20",
+          options: {
+            a: "Bloquear a passagem dos espermatozóides para o útero",
+            b: "Impedir a menstruação",
+            c: "Aumentar a fertilidade",
+            d: "Promover o crescimento do útero",
+          },
+          answer: "a",
+        },
+        {
+          text: "Qual método contraceptivo requer uma cirurgia para ser colocado e é geralmente considerado permanente?",
+          class: "question21",
+          options: {
+            a: "Preservativo (camisinha)",
+            b: "Pílula anticoncepcional",
+            c: "DIU (Dispositivo Intrauterino)",
+            d: "Laqueadura tubária",
+          },
+          answer: "d",
+        },
+        {
+          text: "Qual é a função do preservativo (camisinha) como método contraceptivo?",
+          class: "question22",
+          options: {
+            a: "Inibir a ovulação",
+            b: "Impedir a menstruação",
+            c: "Bloquear a passagem dos espermatozóides",
+            d: "Estimular a fertilidade",
+          },
+          answer: "c",
+        },
+        {
+          text: "Qual é a principal vantagem dos métodos contraceptivos reversíveis, como a pílula anticoncepcional, em comparação com os métodos permanentes?",
+          class: "question23",
+          options: {
+            a: "São mais eficazes na prevenção da gravidez",
+            b: "Não exija receita médica",
+            c: "Permitir a reversão e a retomada da fertilidade após a interrupção do uso",
+            d: "São permanentes e não podem ser descontinuados",
+          },
+          answer: "c",
+        },
+        {
+          text: "Quais dos seguintes métodos contraceptivos são inseridos no útero e podem permanecer no local por vários anos, proporcionando proteção contínua contra a gravidez?",
+          class: "question24",
+          options: {
+            a: "Pílula anticoncepcional",
+            b: "Preservativo (camisinha)",
+            c: "DIU (Dispositivo Intrauterino)",
+            d: "Método de Tabela",
+          },
+          answer: "c",
+        },
+        {
+          text: "Qual das seguintes afirmações é verdadeira sobre a saúde sexual da população LGBT?",
+          class: "question25",
+          options: {
+            a: "Todos os métodos contraceptivos são igualmente eficazes para todas as orientações sexuais",
+            b: "A população LGBT não enfrenta riscos específicos de saúde sexual",
+            c: "É importante que os profissionais de saúde prestem serviços de saúde culturalmente sensíveis e inclusivos para a população LGBT",
+            d: "Apenas as pessoas transgêneros têm preocupações relacionadas à saúde sexual",
+          },
+          answer: "c",
+        },
+        {
+          text: "Quais são algumas das razões pelas quais a população LGBT pode enfrentar disparidades na saúde sexual e reprodutiva?",
+          class: "question26",
+          options: {
+            a: "Porque todos os serviços de saúde são igualmente acessíveis a todas as orientações sexuais",
+            b: "Devido à falta de informações sobre saúde sexual disponíveis para eles",
+            c: "Porque a orientação sexual não afeta a saúde sexual",
+            d: "Porque a população LGBT não precisa de serviços de saúde sexual",
+          },
+          answer: "b",
+        },
+        {
+          text: "Qual é uma das maneiras de apoiar a saúde sexual e reprodutiva da população LGBT?",
+          class: "question27",
+          options: {
+            a: "Ignorar suas preocupações de saúde sexual",
+            b: "Fornecer informações de saúde sexual apenas para a população heterossexual",
+            c: "Oferecer serviços de saúde inclusivos e sem preconceitos",
+            d: "Discriminar com base na orientação sexual",
+          },
+          answer: "c",
+        },
+        {
+          text: "Qual é uma das preocupações específicas de saúde reprodutiva que afeta algumas pessoas transgênero?",
+          class: "question28",
+          options: {
+            a: "A falta de acesso a métodos contraceptivos",
+            b: "A incapacidade de realizar exames de saúde",
+            c: "A necessidade de cuidados de saúde relacionados à transição de gênero",
+            d: "A resistência aos tratamentos hormonais",
+          },
+          answer: "c",
+        },
+        {
+          text: "Qual é uma das razões pelas quais é importante que os adolescentes LGBT tenham acesso a informações precisas sobre saúde sexual",
+          class: "question29",
+          options: {
+            a: "Porque a orientação sexual não afeta a saúde sexual",
+            b: "Porque a população LGBT não está em risco de ISTs",
+            c: "Porque informações precisas ajudam a tomar decisões informadas sobre sexo seguro e cuidados de saúde",
+            d: "Porque os adolescentes LGBT não devem se preocupar com a saúde sexual",
+          },
+          answer: "c",
+        },
+        {
+          text: "Qual é uma das principais barreiras que a população LGBT pode enfrentar ao buscar cuidados de saúde sexual?",
+          class: "question 30",
+          options: {
+            a: "Disponibilidade abundante de profissionais de saúde sensíveis à diversidade.",
+            b: "Falta de confidencialidade e medo de discriminação.",
+            c: "Acesso fácil e gratuito a todos os serviços de saúde.",
+            d: "Acesso igualitário a todos os métodos contraceptivos.",
+          },
+          answer: "b",
+        },
+      ];
+
+      let currentPlayer = 1;
+      let p1Score = 0;
+      let p2Score = 0;
+      let currentQuestionIndex = 0;
+
+      const p1ScoreElement = document.getElementById("p1Score");
+      const p2ScoreElement = document.getElementById("p2Score");
+      const questionTextElement = document.getElementById("questionText");
+      const optionAElement = document.getElementById("optionA");
+      const optionBElement = document.getElementById("optionB");
+      const optionCElement = document.getElementById("optionC");
+      const optionDElement = document.getElementById("optionD");
+      const answerForm = document.getElementById("answerForm");
+
+      function updateQuestion() {
+        if (currentQuestionIndex < questions.length) {
+          const question = questions[currentQuestionIndex];
+          questionTextElement.textContent = question.text;
+          optionAElement.textContent = question.options.a;
+          optionBElement.textContent = question.options.b;
+          optionCElement.textContent = question.options.c;
+          optionDElement.textContent = question.options.d;
+          answerForm.answer.value = "";
+
+          const col2Part2 = document.querySelector('.col2-part2');
+    col2Part2.style.backgroundImage = `url("../images/${question.class}.png")`;
+
+        } else {
+          endGame();
+        }
+      }
+
+      function endGame() {
+        if (p1Score > p2Score) {
+          window.location.href = "./FinalPage.html";
+          alert("name1");
+        } else if (p2Score > p1Score) {
+          window.location.href = "./FinalPage.html";
+          alert("name2");
+        } else {
+          window.location.href = "./FinalPage.html";
+          alert("Empate!");
+        }
+      }
+
+      updateQuestion();
+      answerForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        
+        const selectedAnswer = answerForm.answer.value;
+        const question = questions[currentQuestionIndex];
+
+        if (selectedAnswer === question.answer) {
+          if (currentPlayer === 1) {
+            p1Score++;
+            p1ScoreElement.textContent = p1Score;
+          } else {
+            p2Score++;
+            p2ScoreElement.textContent = p2Score;
+          }
+        }
+        currentPlayer = currentPlayer === 1 ? 2 : 1;
+        currentQuestionIndex++;
+        updateQuestion();
+      });
+
+      function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+// Embaralhe o array de perguntas
+shuffleArray(questions);
+
+      function buscarNoLocalStorage(chave) {
+        try {
+          const item = localStorage.getItem(chave);
+          console.log(item);
+          return item;
+        } catch (e) {
+          console.error("Erro ao buscar no localStorage:", e);
+        }
+      }
+
+      const player1Name = document.getElementById("player1");
+      player1Name.innerText = JSON.parse(buscarNoLocalStorage("player1")).name;
+      const player2Name = document.getElementById("player2");
+      player2Name.innerText = JSON.parse(buscarNoLocalStorage("player2")).name;
+      console.log(buscarNoLocalStorage("player1"));
+      console.log(buscarNoLocalStorage("player2"));
+      console.log(buscarNoLocalStorage("image1"));
+      console.log(buscarNoLocalStorage("image2"));
+    </script>
+  </body>
+</html>

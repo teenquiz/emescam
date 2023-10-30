@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <style>
+        body {
+            background-image: url('../images/cenário.png');
+            background-size: 100% 100%;
+            background-attachment: fixed; 
+            background-position: no-repeat;
+            margin: 0; 
+            padding: 0; 
+        }
+
+        @font-face {
+            font-family: 'peralta'; 
+            src: url('./Peralta-Regular.ttf') format('woff2'), 
+                 url('./Peralta-Regular.ttf') format('woff'); 
+        }
+
+        .content {
+            text-align: center;
+            padding: 50px;
+            color: white;
+            margin-top: 100px;
+        }
+        
+        .btn {
+            position: absolute;
+            top: 70%; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background-color: #008CBA;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            margin: 10px;
+            font-family: 'peralta', sans-serif;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0); 
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer img {
+            width: 15%;
+            height: auto;
+            margin: 0px;
+        }
+
+        .rules {
+            display: flex;
+            position: absolute;
+            top: 16%; 
+            left: 15%;
+            font-family: 'peralta', sans-serif;
+            font-size: 180%;
+            background-color: rgba(0, 174, 255, 0.219);
+            border-radius: 20px;
+            padding: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="rules">
+        Regras do jogo: 
+        <br><br><br> 1. Ao iniciar você será redirecionado para tela de seleção. 
+        <br><br> Jogador 1 escolhe o personagem primeiro e então o jogador 2 pode selecionar. 
+        <br><br> 2. É necessário inserir nomes para cada jogador. 
+        <br><br> 3. Dado início ao jogo, cada jogador responde a uma pergunta. Começando pelo jogador 1. 
+        <br><br> 4. O jogo termina quando todas as perguntas forem respondidas. 
+    </div>
+    <div class="button-container">
+        <a href="Seleção.html">
+        <div class="btn">Continuar</div>
+    </a>
+    </div>
+    <div class="footer">
+        <img src="../images/fapes_2.png" alt="Imagem 1">
+        <img src="../images/Logotipo-Atualizado-EMESCAM-horizontal-e1614090732277-1024x274.png" alt="Imagem 2">
+    </div>
+</body>
+</html>
